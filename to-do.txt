@@ -1,0 +1,4 @@
+-implement parsing
+-modify atoi to work better within the philo project
+-read up on pthread
+-read up on mutexes

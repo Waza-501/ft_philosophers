@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   errors.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/09 11:48:21 by owen          ########   odam.nl         */
+/*   Created: 2025/04/21 10:57:37 by owen          #+#    #+#                 */
+/*   Updated: 2025/04/21 11:02:24 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	parse_input(int argc, char **argv)
+int	error_msg(char *msg, int code)
 {
-	if (argc < 5 || argc > 6)
-	{
-		error_msg("invalid argument count.", 1);
-		return (1);
-	}
-}
-
-int	main(int argc, char **argv)
-{
-	t_data	*data;
-
-	if (parse_input(argc, argv))
-		return (1);
-	data = parse_input(argv);
+	if (msg)
+		write(2, msg, ft_strlen(msg));
+	else
+		write(2, GENERIC_ERR, ft_strlen(GENERIC_ERR));
+	return (code);
 }
