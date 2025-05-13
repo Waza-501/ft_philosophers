@@ -6,26 +6,22 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/09 11:48:21 by owen          ########   odam.nl         */
+/*   Updated: 2025/05/12 16:22:41 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	parse_input(int argc, char **argv)
-{
-	if (argc < 5 || argc > 6)
-	{
-		error_msg("invalid argument count.", 1);
-		return (1);
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (parse_input(argc, argv))
+	data = prepare_data();
+	if (!data)
+		/*to be removed*/
+		exit(1);
+	if (parse_input(argc, argv, data))
 		return (1);
-	data = parse_input(argv);
+	printf("nice. it works so far\n");
+	return (0);
 }
