@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:58:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/13 17:27:03 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/05/15 13:06:39 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,25 @@ int	ft_strlen(char *str)
 	return (idx);
 }
 
-int	ft_atoi(const char *ptr, int *status)
+int	str_isdigit(char *str)
 {
-	long	ret;
+	int	idx;
+
+	idx = 0;
+	if (str[idx] == '-' || str[idx] == '+')
+		idx++;
+	while (str[idx])
+	{
+		if ((str[idx] < '0' || str[idx] > '9'))
+			return (1);
+		idx++;
+	}
+	return (0);
+}
+
+long	ft_atoi(const char *ptr, int *status)
+{
+	long long	ret;
 	int		negative;
 
 	ret = 0;
@@ -39,15 +55,9 @@ int	ft_atoi(const char *ptr, int *status)
 			negative *= -1;
 		ptr++;
 	}
-	while (*ptr)
+	while (*ptr >= '0' && *ptr <= '9')
 	{
-		if (*ptr >= '0' && *ptr <= '9')
-			ret = ret * 10 + *ptr - '0';
-		else
-		{
-			status = error_msg(IN_CHAR_ERR, 1);
-			return (0);
-		}
+		ret = ret * 10 + *ptr - '0';
 		ptr++;
 	}
 	return (ret * negative);
@@ -58,12 +68,13 @@ int	convert_string(char *str, int *status)
 	long	value;
 
 	value = 0;
+	if (str_isdigit(str))
+		*status = error_msg(IN_CHAR_ERR, 1);
 	value = ft_atoi(str, status);
-	if ((value < INT_MIN || value > INT_MAX) && status == 0)
-	{
-		error_msg(IN_OVER_MAX, 1);
-		status = 1;
-	}
+	if (value < 0 && *status == 0)
+		*status = error_msg(IN_UNDER_MIN, 1);
+	if (value > INT_MAX && *status == 0)
+		*status = error_msg(IN_OVER_MAX, 1);
 	return (value);
 }
 
@@ -74,11 +85,12 @@ void	*prepare_data(void)
 	new = (t_data *)malloc(sizeof(t_data));
 	if (!new)
 		return (NULL);
-	new->nbr = 0;
+	new->philonbr = 0;
 	new->time_die = 0;
 	new->time_eat = 0;
 	new->time_sleep = 0;
 	new->meal_target = 0;
 	new->infinite = true;
+	new->finish = false;
 	return (new);
 }

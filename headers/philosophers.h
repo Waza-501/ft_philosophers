@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/13 17:26:05 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/05/19 13:27:58 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,49 @@
 # define EXIT_GOOD		0
 # define EXIT_BAD		1
 # define GENERIC_ERR	"An error occured. Please try again"
+# define MEM_ERR		"Malloc failure"
 # define IN_COUNT_ERR	"Invalid input. Format is ./philosophers 1 2 3 4 (5)"
 # define IN_CHAR_ERR	"Make sure the given value is a number"
 # define IN_OVER_MAX	"Make sure the given value is a valid integer"
-# define IN_VALUE_ERR	"Make sure the given values are larger than 0"
+# define IN_UNDER_MIN	"Values must be larger than 0"
+# define WARN_LIMIT		"One of the given values exceeds the recommended tests.\
+ this can lead to performance issues and/or failure."
 
 # include <stdbool.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <stdio.h>
 # include <limits.h>
+# include <sys/time.h>
+# include <pthread.h>
 
 typedef struct s_data
 {
-	int		nbr;
-	int		time_die;
-	int		time_eat;
-	int		time_sleep;
-	int		meal_target;
-	bool	infinite;
-
+	int			philonbr;
+	int			time_die;
+	int			time_eat;
+	int			time_sleep;
+	int			meal_target;
+	bool		infinite;
+	bool		finish;
 }			t_data;
 
 
 typedef struct s_philo
 {
-	t_data	data;
-	int		num;
-	int		last_dinner;
-	int		times_eaten;
-	bool	dead;
+	t_data		data;
+	pthread_t	*thread;
+	int			num;
+	int			last_meal;
+	int			times_eaten;
+	bool		dead;
 }			t_philo;
 
+typedef struct s_test
+{
+
+
+}			t_test;
 
 /*errors.c*/
 int		error_msg(char *msg, int code);

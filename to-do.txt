@@ -2,7 +2,3 @@
 -modify atoi to work better within the philo project
 -read up on pthread
 -read up on mutexes
-
-May 12th
-Maybe merge opt and reg together,
-and move verification into a seperate func.
