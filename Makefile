@@ -1,6 +1,6 @@
-NAME		:=	philosphers
+NAME		:=	philosophers
 CC			:=	cc
-FLAGS		:=	
+FLAGS		:=	-Wall -Werror -Wextra -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	errors.c\

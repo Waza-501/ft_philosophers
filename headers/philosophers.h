@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/19 13:27:58 by owen          ########   odam.nl         */
+/*   Updated: 2025/05/20 17:13:51 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,22 @@
 
 typedef struct s_data
 {
-	int			philonbr;
-	int			time_die;
-	int			time_eat;
-	int			time_sleep;
-	int			meal_target;
-	bool		infinite;
-	bool		finish;
+	int				philonbr;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				meal_target;
+	pthread_mutex_t	*print;
+	bool			debug;
+	bool			infinite;
+	bool			finish;
 }			t_data;
 
 
 typedef struct s_philo
 {
-	t_data		data;
-	pthread_t	*thread;
+	t_data		*data;
+	pthread_t	thread;
 	int			num;
 	int			last_meal;
 	int			times_eaten;

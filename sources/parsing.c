@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 14:20:48 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/05/15 12:01:46 by owen          ########   odam.nl         */
+/*   Updated: 2025/05/20 12:54:10 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	convert_args(int argc, char **argv, t_data *data)
 	if (argc == 6 && ret_status == 0)
 	{
 		data->meal_target = convert_string(argv[5], &ret_status);
-		data->infinite == false;
+		data->infinite = false;
 	}
 	if (ret_status == 0)
 		ret_status = verify_input(data);

@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:58:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/15 13:06:39 by owen          ########   odam.nl         */
+/*   Updated: 2025/05/20 13:08:22 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ void	*prepare_data(void)
 	new->time_eat = 0;
 	new->time_sleep = 0;
 	new->meal_target = 0;
+	new->print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!new->print)
+		return (NULL);
 	new->infinite = true;
 	new->finish = false;
 	return (new);
