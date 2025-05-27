@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/20 17:13:51 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/05/23 13:07:09 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ typedef struct s_philo
 	bool		dead;
 }			t_philo;
 
-typedef struct s_test
+typedef enum e_print_type
 {
-
-
-}			t_test;
+	DEATH = 0,
+	FINISH,
+	EAT,
+	SLEEP,
+	THINK,
+	FORK,
+}			t_print_type;
 
 /*errors.c*/
 int		error_msg(char *msg, int code);
