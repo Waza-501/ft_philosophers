@@ -6,13 +6,13 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 16:06:21 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/05/28 13:48:58 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/05/28 15:51:00 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	fill_philosphers(t_data *data, t_philo *philo)
+bool	fill_philosophers(t_data *data, t_philo *philo)
 {
 	int			i;
 
@@ -20,6 +20,9 @@ bool	fill_philosphers(t_data *data, t_philo *philo)
 	while (i < data->philonbr)
 	{
 		philo[i].data = data;
+		philo[i].meal_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+		if (!philo[i].meal_lock)
+			return (false);
 		philo[i].dead = false;
 		philo[i].last_meal = 0;
 		philo[i].num = (i + 1);
@@ -29,13 +32,15 @@ bool	fill_philosphers(t_data *data, t_philo *philo)
 	return (true);
 }
 
-t_philo	*create_philosophers(t_data *data)
+t_philo	*configure_philos(t_data *data)
 {
 	t_philo	*new_arr;
 
 	new_arr = (t_philo *)malloc(sizeof(t_philo) * (data->philonbr + 1));
 	if (!new_arr)
 		return (NULL);
+	if (fill_philosphers(data, new_arr) == false)
+		return (NULL);/*replace NULL with free function*/
 	return (new_arr);
 }
 

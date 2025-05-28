@@ -6,7 +6,9 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 15:01:05 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/05/27 15:01:06 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/05/28 15:39:50 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philosophers.h"
 

@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/28 13:28:46 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/05/28 15:48:53 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_philo
 {
 	t_data			*data;
 	pthread_t		thread;
+	pthread_mutex_t	*meal_lock;
 	int				num;
 	int				last_meal;
 	int				times_eaten;
@@ -80,7 +81,7 @@ int		parse_input(int argc, char **argv, t_data *data);
 /*printing*/
 /*structs*/
 bool	fill_philosphers(t_data *data, t_philo *philo);
-t_philo	*create_philosophers(t_data *data);
+t_philo	*configure_philos(t_data *data);
 void	*prepare_data(void);
 
 /*threads*/

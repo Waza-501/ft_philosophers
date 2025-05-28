@@ -3,9 +3,15 @@ CC			:=	cc
 FLAGS		:=	-Wall -Werror -Wextra -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
-SOURCES		:=	errors.c\
+SOURCES		:=	cleanup.c\
+				eat_sleep_think.c\
+				errors.c\
 				main.c\
 				parsing.c\
+				printing.c\
+				structs.c\
+				threads.c\
+				time.c\
 				utils.c\
 
 OBJECTS_DIR	:=	objects/
