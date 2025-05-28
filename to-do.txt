@@ -1,4 +1,6 @@
--implement parsing
--modify atoi to work better within the philo project
 -read up on pthread
 -read up on mutexes
+-set up enum
+-set up configure eat-sleep think stagger
+-set up grim reaper
+-create custom sleep timer

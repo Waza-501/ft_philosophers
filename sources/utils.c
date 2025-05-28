@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:58:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/20 13:08:22 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/05/27 16:06:30 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	str_isdigit(char *str)
 long	ft_atoi(const char *ptr, int *status)
 {
 	long long	ret;
-	int		negative;
+	int			negative;
 
 	ret = 0;
 	negative = 1;
@@ -76,24 +76,4 @@ int	convert_string(char *str, int *status)
 	if (value > INT_MAX && *status == 0)
 		*status = error_msg(IN_OVER_MAX, 1);
 	return (value);
-}
-
-void	*prepare_data(void)
-{
-	t_data	*new;
-
-	new = (t_data *)malloc(sizeof(t_data));
-	if (!new)
-		return (NULL);
-	new->philonbr = 0;
-	new->time_die = 0;
-	new->time_eat = 0;
-	new->time_sleep = 0;
-	new->meal_target = 0;
-	new->print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	if (!new->print)
-		return (NULL);
-	new->infinite = true;
-	new->finish = false;
-	return (new);
 }

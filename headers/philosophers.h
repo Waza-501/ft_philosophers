@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/23 13:07:09 by owen          ########   odam.nl         */
+/*   Updated: 2025/05/28 13:28:46 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_data
 	int				time_sleep;
 	int				meal_target;
 	pthread_mutex_t	*print;
+	pthread_mutex_t	*forks;
 	bool			debug;
 	bool			infinite;
 	bool			finish;
@@ -48,12 +49,12 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	t_data		*data;
-	pthread_t	thread;
-	int			num;
-	int			last_meal;
-	int			times_eaten;
-	bool		dead;
+	t_data			*data;
+	pthread_t		thread;
+	int				num;
+	int				last_meal;
+	int				times_eaten;
+	bool			dead;
 }			t_philo;
 
 typedef enum e_print_type
@@ -66,6 +67,8 @@ typedef enum e_print_type
 	FORK,
 }			t_print_type;
 
+/*cleanup*/
+/*eat_sleep_think*/
 /*errors.c*/
 int		error_msg(char *msg, int code);
 
@@ -74,8 +77,17 @@ int		error_msg(char *msg, int code);
 /*parsing.c*/
 int		parse_input(int argc, char **argv, t_data *data);
 
+/*printing*/
+/*structs*/
+bool	fill_philosphers(t_data *data, t_philo *philo);
+t_philo	*create_philosophers(t_data *data);
+void	*prepare_data(void);
+
+/*threads*/
+/*time*/
+
 /*utils.c*/
 int		ft_strlen(char *str);
 int		convert_string(char *str, int *status);
-void	*prepare_data(void);
+
 #endif
