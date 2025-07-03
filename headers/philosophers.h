@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/28 15:48:53 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/06/04 12:55:36 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_philo
 	t_data			*data;
 	pthread_t		thread;
 	pthread_mutex_t	*meal_lock;
+	pthread_mutex_t	*fork1;
+	pthread_mutex_t	*fork2;
 	int				num;
 	int				last_meal;
 	int				times_eaten;
@@ -90,5 +92,8 @@ void	*prepare_data(void);
 /*utils.c*/
 int		ft_strlen(char *str);
 int		convert_string(char *str, int *status);
+
+/*placeholders*/
+pthread_mutex_t	*set_mutex(pthread_mutex_t *src);
 
 #endif
