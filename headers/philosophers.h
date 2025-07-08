@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/06/04 12:55:36 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/08 11:16:06 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef enum e_print_type
 }			t_print_type;
 
 /*cleanup*/
+void	clean_mutex(pthread_mutex_t	*target);
 /*eat_sleep_think*/
 /*errors.c*/
 int		error_msg(char *msg, int code);
