@@ -1,40 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cleanup.c                                          :+:    :+:            */
+/*   setup_data.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/05/27 14:49:27 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/14 14:49:08 by owhearn       ########   odam.nl         */
+/*   Created: 2025/05/27 16:06:21 by owhearn       #+#    #+#                 */
+/*   Updated: 2025/07/14 14:24:56 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/*all of this needs to be redone*/
-void	clean_philos(t_philo *philo, int target)
-{
-	int	i;
 
-	i = 0;
-	while (i < target)
-	{
-		pthread_join(philo[i].thread, NULL);
-		clean_mutex(philo[i].meal_lock);
-		i++;
-	}
-	free(philo);
-}
-
-void	clean_data(t_data *data)
+void	*prepare_data(void)
 {
-	clean_mutex(data->print);
-	clean_mutex(data->forks);
-}
+	t_data	*new;
 
-void	clean_mutex(pthread_mutex_t	*target)
-{
-	pthread_mutex_destroy(target);
-	free(target);
+	new = (t_data *)malloc(sizeof(t_data));
+	if (!new)
+		return (NULL);
+	new->input = init_input();
+	if (!new->input)
+		return (free(new), NULL);
+	new->print = 0;
+	new->infinite = true;
+	new->finish = false;
+	return (new);
 }

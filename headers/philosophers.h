@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/08 11:16:06 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/14 17:50:41 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,22 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_data
+typedef struct s_input
 {
 	int				philonbr;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
 	int				meal_target;
+}			t_input;
+
+
+typedef struct s_data
+{
+	t_input			*input;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*forks;
+	time_t			start;
 	bool			debug;
 	bool			infinite;
 	bool			finish;
@@ -54,7 +61,7 @@ typedef struct s_philo
 	pthread_mutex_t	*meal_lock;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
-	int				num;
+	int				id;
 	int				last_meal;
 	int				times_eaten;
 	bool			dead;
@@ -82,9 +89,15 @@ int		error_msg(char *msg, int code);
 int		parse_input(int argc, char **argv, t_data *data);
 
 /*printing*/
-/*structs*/
+
+/*setup_input*/
+void	*init_input(void);
+
+/*setup_philo*/
 bool	fill_philosphers(t_data *data, t_philo *philo);
-t_philo	*configure_philos(t_data *data);
+t_philo	*init_philos(t_data *data);
+
+/*structs*/
 void	*prepare_data(void);
 
 /*threads*/
