@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/14 13:57:43 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/15 16:39:25 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,17 @@ bool	init_mutex(t_data *data)
 	return (true);
 }
 
+void	lone_philosopher(t_data *data)
+{
+	
+}
+
 int	run_simulation(t_data *data)
 {
 	t_philo		*philo_arr;
 
+	data->start = get_start_time(data);
+	data->threads = (pthread_t *)malloc(sizeof(pthread_t) * data->input->nbr);
 	philo_arr = configure_philos(data);
 	/*implement stagger, so have the odd philosophers think first*/
 	return (EXIT_GOOD);

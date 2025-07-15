@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 14:47:20 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/05/20 16:42:47 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/15 16:20:10 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ time_t	get_current_time(void)
 
 time_t	get_start_time(t_data *data)
 {
-	return (get_current_time() + (10 * data->philonbr));
+	return (get_current_time() + (10 * data->input->nbr));
 }
 
 void	delay_start(t_data *data)
 {
+	/*Fix this so it makes sure nothing went wrong during setup*/
 	while (true)
 		continue ;
 }

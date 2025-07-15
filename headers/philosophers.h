@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/14 17:50:41 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/15 16:43:23 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # define IN_UNDER_MIN	"Values must be larger than 0"
 # define WARN_LIMIT		"One of the given values exceeds the recommended tests.\
  this can lead to performance issues and/or failure."
-
+# define WARN_LIMIT_2	"One of the given values far exceeds the recommended\
+ tests. this can lead to performance issues and/or failure."
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -34,7 +35,7 @@
 
 typedef struct s_input
 {
-	int				philonbr;
+	int				nbr;
 	int				time_die;
 	int				time_eat;
 	int				time_sleep;
@@ -48,6 +49,7 @@ typedef struct s_data
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*forks;
 	time_t			start;
+	pthread_t		*threads;
 	bool			debug;
 	bool			infinite;
 	bool			finish;
@@ -57,14 +59,12 @@ typedef struct s_data
 typedef struct s_philo
 {
 	t_data			*data;
-	pthread_t		thread;
+	int				id;
+	int				times_eaten;
+	time_t			last_meal;
 	pthread_mutex_t	*meal_lock;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
-	int				id;
-	int				last_meal;
-	int				times_eaten;
-	bool			dead;
 }			t_philo;
 
 typedef enum e_print_type
@@ -102,12 +102,12 @@ void	*prepare_data(void);
 
 /*threads*/
 /*time*/
+time_t	get_current_time(void);
+time_t	get_start_time(t_data *data);
+
 
 /*utils.c*/
 int		ft_strlen(char *str);
 int		convert_string(char *str, int *status);
-
-/*placeholders*/
-pthread_mutex_t	*set_mutex(pthread_mutex_t *src);
 
 #endif

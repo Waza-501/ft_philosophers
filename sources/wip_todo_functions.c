@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   placeholder_functions.c                            :+:    :+:            */
+/*   wip_todo_functions.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 12:07:03 by owen          #+#    #+#                 */
-/*   Updated: 2025/06/04 12:55:20 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/15 16:00:24 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,9 @@ pthread_mutex_t	*set_mutex(pthread_mutex_t *src)
 	if (!pthread_mutex_init(src, NULL))
 		return (1);
 	return (0);
+}
+
+bool	check_status(t_data *data)
+{
+	
 }
