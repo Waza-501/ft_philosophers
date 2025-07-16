@@ -6,11 +6,25 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 16:06:21 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/15 16:21:53 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/16 14:29:10 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+bool	setup_data(t_data *data)
+{
+	if (init_mutex(&data->print) == false)
+		return (false);
+	data->forks = create_forks(data->input->nbr);
+	if (!data->forks)
+		return (false);
+	data->start = get_start_time(data);
+	data->threads = (pthread_t *)malloc(sizeof(pthread_t) * data->input->nbr);
+	if (!data->threads)
+		return (clean_multimutex(data->forks, data->input->nbr), false);
+	return (true);
+}
 
 void	*prepare_data(void)
 {
@@ -22,7 +36,10 @@ void	*prepare_data(void)
 	new->input = init_input();
 	if (!new->input)
 		return (free(new), NULL);
-	new->print = 0;
+	new->forks = NULL;
+	new->start = 0;
+	new->threads = NULL;
+	new->debug = true;
 	new->infinite = true;
 	new->finish = false;
 	return (new);

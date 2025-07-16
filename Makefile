@@ -4,13 +4,15 @@ FLAGS		:=	-Wall -Werror -Wextra -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	cleanup.c\
-				eat_sleep_think.c\
 				errors.c\
+				forks.c\
 				main.c\
 				parsing.c\
 				printing.c\
-				structs.c\
-				threads.c\
+				routine.c\
+				setup_data.c\
+				setup_input.c\
+				setup_philo.c\
 				time.c\
 				utils.c\
 
@@ -26,7 +28,7 @@ $(NAME):	$(OBJECTS)
 
 $(OBJECTS_DIR)%.o:	$(SOURCES_DIR)%.c
 					@mkdir -p $(dir $@)
-					$(CC) $(CFLAGS) $(HEADERS) -c -o $@ $< -O3
+					$(CC) $(FLAGS) $(HEADERS) -c -o $@ $< -O3
 
 clean:
 			@rm -rf $(OBJECTS)

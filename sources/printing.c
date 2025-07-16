@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:13:22 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/15 15:43:04 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/16 14:28:42 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	do_the_printing(char *str, t_philo *philo)
 
 void	*print_msg(t_philo *philo, t_print_type type)
 {
-	pthread_mutex_lock(philo->data->print);
+	pthread_mutex_lock(&philo->data->print);
 	if (type == DEATH)
 		do_the_printing("has died", philo);
 	else if (type == FINISH)
@@ -33,6 +33,6 @@ void	*print_msg(t_philo *philo, t_print_type type)
 		do_the_printing("is thinking", philo);
 	else if (type == FORK)
 		do_the_printing("has taken a fork", philo);
-	pthread_mutex_unlock(philo->data->print);
+	pthread_mutex_unlock(&philo->data->print);
 	return (NULL);
 }

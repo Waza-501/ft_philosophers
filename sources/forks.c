@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   setup_input.c                                      :+:    :+:            */
+/*   forks.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/07/14 13:47:34 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/16 13:43:19 by owhearn       ########   odam.nl         */
+/*   Created: 2025/07/16 13:15:19 by owhearn       #+#    #+#                 */
+/*   Updated: 2025/07/16 13:15:27 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	*init_input(void)
+pthread_mutex_t	*create_forks(int nbr)
 {
-	t_input	*new;
+	pthread_mutex_t	*forks;
+	int				i;
 
-	new = (t_input *)malloc(sizeof(t_input));
-	if (!new)
+	i = 0;
+	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (nbr + 1));
+	if (!forks)
 		return (NULL);
-	new->nbr = 0;
-	new->time_die = 0;
-	new->time_eat = 0;
-	new->time_sleep = 0;
-	new->meal_target = 0;
-	return (new);
+	while (i < nbr)
+	{
+		if (pthread_mutex_init(&forks[i], NULL) != 0)
+		{
+			clean_multimutex(forks, i);
+			return (NULL);
+		}
+		i++;
+	}
+	printf("created %i forks\n", i);
+	return (forks);
 }

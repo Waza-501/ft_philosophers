@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/08 14:44:25 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/15 16:52:47 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/16 15:24:21 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ bool	fill_philosophers(t_data *data, t_philo *philo)
 		philo[i].id = (i + 1);
 		philo[i].times_eaten = 0;
 		philo[i].last_meal = data->start;
-		if (pthread_mutex_init(philo[i].meal_lock, NULL))
+		if (pthread_mutex_init(&(philo[i].meal_lock), NULL) != 0)
 			return (false);
+		philo[i].fork1 = &data->forks[i];
+		philo[i].fork2 = &data->forks[(i + 1) % data->input->nbr];
 		i++;
 	}
+	printf("filled %i out of %i philosophers\n", i, data->input->nbr);
 	return (true);
 }
 
@@ -39,7 +42,7 @@ t_philo	*init_philos(t_data *data)
 	new = (t_philo *)malloc(sizeof(t_philo) * (data->input->nbr + 1));
 	if (!new)
 		return (NULL);
-	if (fill_philosphers(data, new) == false)
-		return (clean_philos(new, data->input->nbr));
+	if (fill_philosophers(data, new) == false)
+		return (clean_philos(new, data->input->nbr), NULL);
 	return (new);
 }

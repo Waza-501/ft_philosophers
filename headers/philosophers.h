@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/15 16:43:23 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/16 15:34:27 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ typedef struct s_input
 	int				meal_target;
 }			t_input;
 
-
 typedef struct s_data
 {
 	t_input			*input;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
 	time_t			start;
 	pthread_t		*threads;
@@ -55,17 +54,24 @@ typedef struct s_data
 	bool			finish;
 }			t_data;
 
-
 typedef struct s_philo
 {
 	t_data			*data;
 	int				id;
 	int				times_eaten;
 	time_t			last_meal;
-	pthread_mutex_t	*meal_lock;
+	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
 }			t_philo;
+
+typedef enum e_clear_type
+{
+	ALL = 0,
+	NONE,
+	THREADS,
+	FORKS,
+}			t_clear_type;
 
 typedef enum e_print_type
 {
@@ -78,36 +84,49 @@ typedef enum e_print_type
 }			t_print_type;
 
 /*cleanup*/
-void	clean_mutex(pthread_mutex_t	*target);
-/*eat_sleep_think*/
+void			clean_philos(t_philo *philo, int target);
+void			clean_multimutex(pthread_mutex_t *target, int nbr);
+void			clean_data(t_data *data);
+void			clean_mutex(pthread_mutex_t	*target);
+
 /*errors.c*/
-int		error_msg(char *msg, int code);
+int				error_msg(char *msg, int code);
+
+/*forks.c*/
+pthread_mutex_t	*create_forks(int nbr);
 
 /*main.c*/
 
 /*parsing.c*/
-int		parse_input(int argc, char **argv, t_data *data);
+int				parse_input(int argc, char **argv, t_data *data);
 
 /*printing*/
+void			*print_msg(t_philo *philo, t_print_type type);
+
+/*routine.c*/
+bool			philo_routine(void *input);
+/*setup_data*/
+bool			setup_data(t_data *data);
+void			*prepare_data(void);
 
 /*setup_input*/
-void	*init_input(void);
+void			*init_input(void);
 
 /*setup_philo*/
-bool	fill_philosphers(t_data *data, t_philo *philo);
-t_philo	*init_philos(t_data *data);
+bool			fill_philosphers(t_data *data, t_philo *philo);
+t_philo			*init_philos(t_data *data);
 
 /*structs*/
-void	*prepare_data(void);
+void			*prepare_data(void);
 
 /*threads*/
 /*time*/
-time_t	get_current_time(void);
-time_t	get_start_time(t_data *data);
-
+time_t			get_current_time(void);
+time_t			get_start_time(t_data *data);
 
 /*utils.c*/
-int		ft_strlen(char *str);
-int		convert_string(char *str, int *status);
+int				ft_strlen(char *str);
+int				convert_string(char *str, int *status);
+bool			init_mutex(pthread_mutex_t	*mutex);
 
 #endif

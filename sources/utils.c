@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:58:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/05/27 16:06:30 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/16 14:20:45 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	str_isdigit(char *str)
 	return (0);
 }
 
-long	ft_atoi(const char *ptr, int *status)
+long	ft_atoi(const char *ptr)
 {
 	long long	ret;
 	int			negative;
@@ -70,10 +70,18 @@ int	convert_string(char *str, int *status)
 	value = 0;
 	if (str_isdigit(str))
 		*status = error_msg(IN_CHAR_ERR, 1);
-	value = ft_atoi(str, status);
+	if (*status == 0)
+		value = ft_atoi(str);
 	if (value < 0 && *status == 0)
 		*status = error_msg(IN_UNDER_MIN, 1);
 	if (value > INT_MAX && *status == 0)
 		*status = error_msg(IN_OVER_MAX, 1);
 	return (value);
+}
+
+bool	init_mutex(pthread_mutex_t	*mutex)
+{
+	if (pthread_mutex_init(mutex, NULL))
+		return (false);
+	return (true);
 }

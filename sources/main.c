@@ -6,33 +6,39 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/15 16:39:25 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/16 15:36:09 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
 
-bool	init_mutex(t_data *data)
+void	lone_philosopher(t_philo *philo)
 {
-	if (pthread_mutex_init(data->print, NULL))
-		return (false);
-	return (true);
+	pthread_mutex_lock(philo->fork1);
+	print_msg(philo, FORK);
+	/*sleep = time_to_die*/;
+	print_msg(philo, DEATH);
+	pthread_mutex_unlock(philo->fork1);
 }
 
-void	lone_philosopher(t_data *data)
-{
-	
-}
-
+/*implement stagger, so have the odd philosophers think first*/
 int	run_simulation(t_data *data)
 {
-	t_philo		*philo_arr;
+	t_philo		*philo;
+	int			i;
 
-	data->start = get_start_time(data);
-	data->threads = (pthread_t *)malloc(sizeof(pthread_t) * data->input->nbr);
-	philo_arr = configure_philos(data);
-	/*implement stagger, so have the odd philosophers think first*/
+	i = 0;
+	if (setup_data(data) == false)
+		return (EXIT_BAD);
+	philo = init_philos(data);
+	while (i < data->input->nbr)
+	{
+		pthread_create(&data->threads[i], NULL, &philo_routine, \
+(void *)&philo[i]);
+		i++;
+	}
+	free(philo);
 	return (EXIT_GOOD);
 }
 
@@ -43,11 +49,12 @@ int	main(int argc, char **argv)
 	data = prepare_data();
 	if (!data)
 		return (error_msg(MEM_ERR, 1));
-	if (parse_input(argc, argv, data->input))
-		return (1);
+	if (parse_input(argc, argv, data) != 0)
+		return (EXIT_BAD);
 	run_simulation(data);
-	pthread_mutex_destroy(data->print);
-	free(data);
+	printf("exit time\n");
+	clean_data(data);
+	exit(0);
 	return (0);
 }
 
