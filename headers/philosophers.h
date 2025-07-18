@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/17 16:10:29 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/18 16:59:48 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void			clean_mutex(pthread_mutex_t	*target);
 int				error_msg(char *msg, int code);
 
 /*forks.c*/
+bool			drop_forks(t_philo *philo, t_data *data);
+bool			grab_forks(t_philo *philo, t_data *data);
 pthread_mutex_t	*create_forks(int nbr);
 
 /*main.c*/
@@ -106,7 +108,7 @@ void			*print_msg(t_philo *philo, t_print_type type);
 
 /*routine.c*/
 
-void			ft_sleep(t_data *data, size_t delay);
+void			ft_delay(t_data *data, size_t delay);
 void			*philo_routine(void *input);
 
 /*setup_data*/
@@ -135,7 +137,7 @@ int				convert_string(char *str, int *status);
 bool			init_mutex(pthread_mutex_t	*mutex);
 
 /*wip_todo_functions.c*/
-pthread_mutex_t	*set_mutex(pthread_mutex_t *src);
+bool			set_mutex(pthread_mutex_t *src);
 void			set_finish(t_data *data);
 bool			check_status(t_data *data);
 

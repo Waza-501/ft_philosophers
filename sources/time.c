@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 14:47:20 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/17 11:02:40 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/18 12:27:54 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ time_t	get_start_time(t_data *data)
 
 void	delay_start(t_data *data)
 {
-	/*Fix this so it makes sure nothing went wrong during setup*/
 	while (check_status(data) == false && get_current_time() < data->start)
 		continue ;
 }

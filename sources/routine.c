@@ -6,13 +6,13 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 15:01:05 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/17 16:30:43 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/18 17:08:54 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_sleep(t_data *data, size_t delay)
+void	ft_delay(t_data *data, size_t delay)
 {
 	time_t	target;
 
@@ -23,12 +23,34 @@ void	ft_sleep(t_data *data, size_t delay)
 			break ;
 		usleep(500);
 	}
+}
 
+void	ft_think(t_philo *philo, t_data *data)
+{
+	(void)philo;
+	(void)data;
+}
+
+void	ft_sleep(t_philo *philo, t_data *data)
+{
+	(void)philo;
+	(void)data;
+	print_msg(philo, SLEEP);
+	ft_delay(data, data->input->time_sleep);
 }
 
 void	ft_eat(t_philo *philo, t_data *data)
 {
-	
+
+	if (grab_forks(philo, data) == false)
+		exit(1);
+	print_msg(philo, EAT);
+	ft_delay(data, data->input->time_eat);
+	pthread_mutex_lock(&philo->meal_lock);
+	philo->last_meal = get_current_time();
+	pthread_mutex_unlock(&philo->meal_lock);
+	if (drop_forks(philo, data) == false)
+		exit(1);
 }
 
 void	*philo_routine(void *input)
@@ -37,14 +59,18 @@ void	*philo_routine(void *input)
 
 	philo = (t_philo *)input;
 	if (philo->data->infinite == false && philo->data->input->meal_target == 0)
-		return ;
+		return (NULL);
 	delay_start(philo->data);
 	if (philo->id % 2)
-		ft_sleep(philo->data, philo->data->input->time_sleep);
+		ft_delay(philo->data, philo->data->input->time_sleep);
 	while (true)
 	{
-		print_msg(philo, SLEEP);
-		ft_sleep(philo->data, philo->data->input->time_sleep);
+		ft_eat(philo, philo->data);
+		ft_sleep(philo, philo->data);
+		if (check_status(philo->data) == true)
+			break ;
+		//print_msg(philo, SLEEP);
+		//ft_sleep(philo->data, philo->data->input->time_sleep);
 	}
-	return ;
+	return (NULL);
 }

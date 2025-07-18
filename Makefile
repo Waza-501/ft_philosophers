@@ -1,6 +1,6 @@
 NAME		:=	philosophers
 CC			:=	cc
-FLAGS		:=	-Wall -Wextra -g -fsanitize=address
+FLAGS		:=	-Wall -Wextra -Werror -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	cleanup.c\

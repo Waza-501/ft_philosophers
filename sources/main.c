@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/17 16:29:49 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/18 17:16:21 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	lone_philosopher(t_philo *philo)
 	delay_start(philo->data);
 	pthread_mutex_lock(philo->fork1);
 	print_msg(philo, FORK);
-	ft_sleep(philo->data, philo->data->input->time_die);
+	ft_delay(philo->data, philo->data->input->time_die);
 	print_msg(philo, DEATH);
 	pthread_mutex_unlock(philo->fork1);
 }
@@ -28,6 +28,7 @@ int	run_simulation(t_data *data)
 {
 	t_philo		*philo;
 	int			i;
+	int			idx = 0;
 
 	i = 0;
 	if (setup_data(data) == false)
@@ -42,9 +43,22 @@ int	run_simulation(t_data *data)
 			return (i);
 		i++;
 	}
-	sleep(5);
-	exit(1);
+	sleep(10);
+	set_finish(data);
+	while (idx < data->input->nbr)
+	{
+		pthread_join(data->threads[idx], NULL);
+		idx++;
+	}
+	idx = 0;
+// 	while (idx < data->input->nbr)
+// 	{
+// 		printf("%ld philosopher %i last meal was at %ld\n", get_current_time() - philo[idx].data->start\
+// , philo[idx].id, get_current_time() - philo[idx].last_meal);
+// 		idx++;
+// 	}
 	free(philo);
+	exit(1);
 	return (EXIT_GOOD);
 }
 
@@ -63,7 +77,6 @@ int	main(int argc, char **argv)
 	exit(0);
 	return (0);
 }
-
 
 /*void	*test_case(void *arg)
 {

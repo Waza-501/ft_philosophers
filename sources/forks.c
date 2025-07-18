@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/16 13:15:19 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/17 16:39:16 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/18 16:39:15 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	drop_forks(t_philo *philo, t_data *data)
 {
+	(void)data;
 	if (pthread_mutex_unlock(philo->fork1) != 0)
 		return (false);
 	if (pthread_mutex_unlock(philo->fork2) != 0)
@@ -23,10 +24,13 @@ bool	drop_forks(t_philo *philo, t_data *data)
 
 bool	grab_forks(t_philo *philo, t_data *data)
 {
+	(void)data;
 	if (pthread_mutex_lock(philo->fork1) != 0)
 		return (false);
+	print_msg(philo, FORK);
 	if (pthread_mutex_lock(philo->fork2) != 0)
 		return (false);
+	print_msg(philo, FORK);
 	return (true);
 }
 
