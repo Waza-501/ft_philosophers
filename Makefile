@@ -1,6 +1,6 @@
 NAME		:=	philosophers
 CC			:=	cc
-FLAGS		:=	-Wall -Werror -Wextra -g -fsanitize=address
+FLAGS		:=	-Wall -Wextra -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	cleanup.c\
@@ -15,6 +15,7 @@ SOURCES		:=	cleanup.c\
 				setup_philo.c\
 				time.c\
 				utils.c\
+				wip_todo_functions.c\
 
 OBJECTS_DIR	:=	objects/
 OBJECTS		:=	$(addprefix $(OBJECTS_DIR), $(SOURCES:.c=.o))

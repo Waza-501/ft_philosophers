@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 16:06:21 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/16 14:29:10 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/17 13:43:30 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 bool	setup_data(t_data *data)
 {
 	if (init_mutex(&data->print) == false)
+		return (false);
+	if (init_mutex(&data->status) == false)
 		return (false);
 	data->forks = create_forks(data->input->nbr);
 	if (!data->forks)
@@ -39,7 +41,7 @@ void	*prepare_data(void)
 	new->forks = NULL;
 	new->start = 0;
 	new->threads = NULL;
-	new->debug = true;
+	new->debug = false;
 	new->infinite = true;
 	new->finish = false;
 	return (new);

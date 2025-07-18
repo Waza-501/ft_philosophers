@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/16 15:34:27 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/17 16:10:29 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_data
 	t_input			*input;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	status;
 	time_t			start;
 	pthread_t		*threads;
 	bool			debug;
@@ -72,7 +73,7 @@ typedef enum e_clear_type
 	THREADS,
 	FORKS,
 }			t_clear_type;
-
+/*sleep = time_to_die*/;
 typedef enum e_print_type
 {
 	DEATH = 0,
@@ -104,7 +105,10 @@ int				parse_input(int argc, char **argv, t_data *data);
 void			*print_msg(t_philo *philo, t_print_type type);
 
 /*routine.c*/
-bool			philo_routine(void *input);
+
+void			ft_sleep(t_data *data, size_t delay);
+void			*philo_routine(void *input);
+
 /*setup_data*/
 bool			setup_data(t_data *data);
 void			*prepare_data(void);
@@ -123,10 +127,16 @@ void			*prepare_data(void);
 /*time*/
 time_t			get_current_time(void);
 time_t			get_start_time(t_data *data);
+void			delay_start(t_data *data);
 
 /*utils.c*/
 int				ft_strlen(char *str);
 int				convert_string(char *str, int *status);
 bool			init_mutex(pthread_mutex_t	*mutex);
+
+/*wip_todo_functions.c*/
+pthread_mutex_t	*set_mutex(pthread_mutex_t *src);
+void			set_finish(t_data *data);
+bool			check_status(t_data *data);
 
 #endif

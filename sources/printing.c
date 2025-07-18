@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:13:22 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/16 14:28:42 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/17 15:50:12 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	do_the_printing(char *str, t_philo *philo)
 {
 	if (philo->data->debug == false)
-		printf("%ld philospher %i %s\n", get_current_time(), philo->id, str);
+		printf("%ld philosopher %i %s\n", get_current_time() - philo->data->start\
+, philo->id, str);
 }
 
 void	*print_msg(t_philo *philo, t_print_type type)

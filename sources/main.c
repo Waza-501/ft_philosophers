@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/16 15:36:09 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/17 16:29:49 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 void	lone_philosopher(t_philo *philo)
 {
+	delay_start(philo->data);
 	pthread_mutex_lock(philo->fork1);
 	print_msg(philo, FORK);
-	/*sleep = time_to_die*/;
+	ft_sleep(philo->data, philo->data->input->time_die);
 	print_msg(philo, DEATH);
 	pthread_mutex_unlock(philo->fork1);
 }
@@ -32,12 +33,17 @@ int	run_simulation(t_data *data)
 	if (setup_data(data) == false)
 		return (EXIT_BAD);
 	philo = init_philos(data);
+	if (data->input->nbr == 1)
+		return (lone_philosopher(philo), EXIT_GOOD);
 	while (i < data->input->nbr)
 	{
-		pthread_create(&data->threads[i], NULL, &philo_routine, \
-(void *)&philo[i]);
+		if (pthread_create(&data->threads[i], NULL, &philo_routine, \
+(void *)&philo[i]) != 0)
+			return (i);
 		i++;
 	}
+	sleep(5);
+	exit(1);
 	free(philo);
 	return (EXIT_GOOD);
 }
