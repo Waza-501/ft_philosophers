@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/18 16:59:48 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/22 16:34:30 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define IN_UNDER_MIN	"Values must be larger than 0"
 # define WARN_LIMIT		"One of the given values exceeds the recommended tests.\
  this can lead to performance issues and/or failure."
-# define WARN_LIMIT_2	"One of the given values far exceeds the recommended\
- tests. this can lead to performance issues and/or failure."
+# define OVER_LIMIT	"One of the given values far exceeds the recommended\
+ tests. To avoid crashes/ other undefined behaviour, the program ends here."
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -73,7 +73,7 @@ typedef enum e_clear_type
 	THREADS,
 	FORKS,
 }			t_clear_type;
-/*sleep = time_to_die*/;
+
 typedef enum e_print_type
 {
 	DEATH = 0,
@@ -91,7 +91,7 @@ void			clean_data(t_data *data);
 void			clean_mutex(pthread_mutex_t	*target);
 
 /*errors.c*/
-int				error_msg(char *msg, int code);
+int				print_msg_fd(char *msg, int code);
 
 /*forks.c*/
 bool			drop_forks(t_philo *philo, t_data *data);
@@ -99,6 +99,9 @@ bool			grab_forks(t_philo *philo, t_data *data);
 pthread_mutex_t	*create_forks(int nbr);
 
 /*main.c*/
+
+/*monitor.c*/
+void			*monitor(void *input);
 
 /*parsing.c*/
 int				parse_input(int argc, char **argv, t_data *data);

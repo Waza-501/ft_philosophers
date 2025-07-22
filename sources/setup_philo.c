@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/08 14:44:25 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/16 15:24:21 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/20 21:41:48 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ bool	fill_philosophers(t_data *data, t_philo *philo)
 		philo[i].fork2 = &data->forks[(i + 1) % data->input->nbr];
 		i++;
 	}
-	printf("filled %i out of %i philosophers\n", i, data->input->nbr);
 	return (true);
 }
 

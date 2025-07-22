@@ -6,19 +6,24 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:57:37 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/16 13:59:03 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/22 16:35:49 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	error_msg(char *msg, int code)
+int	print_msg_fd(char *msg, int code)
 {
-	write (2, "Error: ", 7);
-	if (msg)
-		write(2, msg, ft_strlen(msg));
+	if (code == 1)
+	{
+		write (2, "Error: ", 7);
+		if (msg)
+			write(2, msg, ft_strlen(msg));
+		else
+			write(2, GENERIC_ERR, ft_strlen(GENERIC_ERR));
+	}
 	else
-		write(2, GENERIC_ERR, ft_strlen(GENERIC_ERR));
+		write (1, msg, ft_strlen(msg));
 	write(2, "\n", 1);
 	return (code);
 }

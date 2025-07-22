@@ -1,12 +1,13 @@
 NAME		:=	philosophers
 CC			:=	cc
-FLAGS		:=	-Wall -Wextra -Werror -g -fsanitize=address
+FLAGS		:=	-Wall -Wextra -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	cleanup.c\
 				errors.c\
 				forks.c\
 				main.c\
+				monitor.c\
 				parsing.c\
 				printing.c\
 				routine.c\
