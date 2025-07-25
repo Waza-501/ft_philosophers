@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 15:01:05 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/22 16:38:06 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/22 17:46:44 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ void	ft_delay(t_data *data, size_t delay)
 	}
 }
 
-void	ft_think(t_philo *philo, t_data *data)
+void	ft_think(t_philo *philo)
 {
-	(void)data;
 	print_status(philo, THINK);
 }
 
@@ -63,15 +62,14 @@ void	*philo_routine(void *input)
 		return (NULL);
 	delay_start(philo->data);
 	if (philo->id % 2)
-		/*replace this with thinking*/
-		ft_delay(philo->data, philo->data->input->time_sleep);
+		ft_delay(philo->data, (philo->data->input->time_eat / 2));
 	while (true)
 	{
 		ft_eat(philo, philo->data);
 		ft_sleep(philo, philo->data);
 		if (check_status(philo->data) == true)
 			break ;
-		ft_think(philo, philo->data);
+		ft_think(philo);
 	}
 	return (NULL);
 }

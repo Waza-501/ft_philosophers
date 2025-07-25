@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/22 16:34:30 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/22 16:56:17 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,6 @@ typedef struct s_philo
 	pthread_mutex_t	*fork2;
 }			t_philo;
 
-typedef enum e_clear_type
-{
-	ALL = 0,
-	NONE,
-	THREADS,
-	FORKS,
-}			t_clear_type;
-
 typedef enum e_print_type
 {
 	DEATH = 0,
@@ -91,7 +83,7 @@ void			clean_data(t_data *data);
 void			clean_mutex(pthread_mutex_t	*target);
 
 /*errors.c*/
-int				print_msg_fd(char *msg, int code);
+
 
 /*forks.c*/
 bool			drop_forks(t_philo *philo, t_data *data);
@@ -107,7 +99,8 @@ void			*monitor(void *input);
 int				parse_input(int argc, char **argv, t_data *data);
 
 /*printing*/
-void			*print_msg(t_philo *philo, t_print_type type);
+int				print_msg_fd(char *msg, int code);
+void			*print_status(t_philo *philo, t_print_type type);
 
 /*routine.c*/
 

@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 12:07:03 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/18 12:27:22 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/24 14:05:53 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 bool	set_mutex(pthread_mutex_t *src)
 {
-	int	ret;
-
-	ret = 0;
 	if (!pthread_mutex_init(src, NULL))
 		return (false);
 	return (true);

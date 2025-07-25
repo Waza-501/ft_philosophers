@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/19 16:45:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/22 16:27:40 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/24 14:06:40 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ bool	cycle_array(t_philo *philo, t_data *data)
 void	*monitor(void *input)
 {
 	t_philo		*philo;
-	int			idx;
 	bool		mealcap;
 
 	philo = (t_philo *)input;

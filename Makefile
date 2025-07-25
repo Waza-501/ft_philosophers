@@ -4,7 +4,6 @@ FLAGS		:=	-Wall -Wextra -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	cleanup.c\
-				errors.c\
 				forks.c\
 				main.c\
 				monitor.c\

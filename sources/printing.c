@@ -6,11 +6,27 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:13:22 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/22 16:25:20 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/22 16:55:30 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	print_msg_fd(char *msg, int code)
+{
+	if (code == 1)
+	{
+		write (2, "Error: ", 7);
+		if (msg)
+			write(2, msg, ft_strlen(msg));
+		else
+			write(2, GENERIC_ERR, ft_strlen(GENERIC_ERR));
+	}
+	else
+		write (1, msg, ft_strlen(msg));
+	write(2, "\n", 1);
+	return (code);
+}
 
 void	do_the_printing(char *str, t_philo *philo)
 {

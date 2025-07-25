@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/22 16:34:30 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/22 16:53:48 by owen          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ bool	join_threads(t_data *data)
 	return (false);
 }
 
-/*implement stagger, so have the odd philosophers think first*/
 int	run_simulation(t_data *data)
 {
 	t_philo		*philo;
