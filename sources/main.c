@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/22 16:53:48 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/30 18:07:09 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	run_simulation(t_data *data)
 {
 	t_philo		*philo;
 	int			i;
-	int			idx = 0;
+	//int			idx = 0;
 
 	i = 0;
 	if (setup_data(data) == false)
@@ -60,12 +60,11 @@ int	run_simulation(t_data *data)
 		return (EXIT_BAD);
 	if (join_threads(data) == true)
 		return (printf("ahhhhhhhhhhhhhh\n"), EXIT_BAD);
-	idx = 0;
-	while (idx < philo->data->input->nbr)
-	{
-		printf("times philo %i has eaten: %i\n", philo[idx].id, philo[idx].times_eaten);
-		idx++;
-	}
+	// while (idx < philo->data->input->nbr)
+	// {
+	// 	printf("times philo %i has eaten: %i\n", philo[idx].id, philo[idx].times_eaten);
+	// 	idx++;
+	// }
 	free(philo);
 	return (EXIT_GOOD);
 }
@@ -78,7 +77,7 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (print_msg_fd(MEM_ERR, 1));
 	if (parse_input(argc, argv, data) != 0)
-		return (EXIT_BAD);
+		return (clean_data(data), EXIT_BAD);
 	run_simulation(data);
 	clean_data(data);
 	return (0);

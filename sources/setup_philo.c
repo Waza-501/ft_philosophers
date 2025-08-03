@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/08 14:44:25 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/20 21:41:48 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/30 16:55:30 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ bool	fill_philosophers(t_data *data, t_philo *philo)
 t_philo	*init_philos(t_data *data)
 {
 	t_philo	*new;
-	int		i;
 
-	i = 0;
 	new = (t_philo *)malloc(sizeof(t_philo) * (data->input->nbr + 1));
 	if (!new)
 		return (NULL);

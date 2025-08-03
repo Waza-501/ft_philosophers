@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 14:49:27 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/16 14:38:59 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/07/30 17:18:30 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ void	clean_multimutex(pthread_mutex_t *target, int nbr)
 
 void	clean_data(t_data *data)
 {
-	clean_mutex(&data->print);
-	clean_multimutex(data->forks, data->input->nbr);
-	free(data->threads);
+	if (&data->print)
+		clean_mutex(&data->print);
+	if (data->forks)
+		clean_multimutex(data->forks, data->input->nbr);
+	if (data->threads)
+		free(data->threads);
 	free(data->input);
 	free(data);
 }

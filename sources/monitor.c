@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/19 16:45:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/24 14:06:40 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/30 17:52:42 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ bool	cycle_array(t_philo *philo, t_data *data)
 
 	idx = 0;
 	target = false;
+	(void)data;
 	while (idx < philo->data->input->nbr)
 	{
 		pthread_mutex_lock(&philo[idx].meal_lock);
@@ -60,11 +61,9 @@ bool	cycle_array(t_philo *philo, t_data *data)
 void	*monitor(void *input)
 {
 	t_philo		*philo;
-	bool		mealcap;
 
 	philo = (t_philo *)input;
 	delay_start(philo->data);
-	mealcap = false;
 	while (true)
 	{
 		if (cycle_array(philo, philo->data) == true)

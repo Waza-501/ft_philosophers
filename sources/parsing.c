@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 14:20:48 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/22 16:34:30 by owen          ########   odam.nl         */
+/*   Updated: 2025/07/30 17:45:39 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@ bool	input_over_limit(t_input *input)
 {
 	if (input->nbr > 400)
 		return (true);
-
 	return (false);
 }
 
 bool	warn_input(t_input *input)
 {
 	if (input->nbr > 200)
-		
-
+		return (true);
 	return (false);
 }
 
@@ -50,6 +48,7 @@ int	verify_input(int argc, t_input *input)
 	if (input->nbr > 350 || input->time_die > 350 || input->time_eat > 350
 		|| input->time_sleep > 350)
 		ret_status = print_msg_fd(WARN_LIMIT, 0);*/
+	printf("status is %i\n", ret_status);
 	return (ret_status);
 }
 
