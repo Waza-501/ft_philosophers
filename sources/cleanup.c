@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 14:49:27 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/30 17:18:30 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/13 11:33:41 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	clean_philos(t_philo *philo, int target)
 	i = 0;
 	while (i < target)
 	{
-		clean_mutex(&philo[i].meal_lock);
+		pthread_mutex_destroy(&philo[i].meal_lock);
 		i++;
 	}
 	free(philo);
@@ -49,9 +49,4 @@ void	clean_data(t_data *data)
 		free(data->threads);
 	free(data->input);
 	free(data);
-}
-
-void	clean_mutex(pthread_mutex_t	*target)
-{
-	pthread_mutex_destroy(target);
 }

@@ -6,12 +6,24 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/30 18:07:09 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/13 11:30:27 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <pthread.h>
+
+/*temporary testing function*/
+void	print_times_eaten(t_philo *philo, int target)
+{
+	int	idx = 0;
+
+	while (idx < target)
+	{
+		printf("times philo %i has eaten: %i\n", philo[idx].id, philo[idx].times_eaten);
+		idx++;
+	}
+}
 
 void	lone_philosopher(t_philo *philo)
 {
@@ -23,25 +35,10 @@ void	lone_philosopher(t_philo *philo)
 	pthread_mutex_unlock(philo->fork1);
 }
 
-bool	join_threads(t_data *data)
-{
-	int	idx;
-
-	idx = 0;
-	while (idx <= data->input->nbr)
-	{
-		if (pthread_join(data->threads[idx], NULL) != 0)
-			return (true);
-		idx++;
-	}
-	return (false);
-}
-
 int	run_simulation(t_data *data)
 {
 	t_philo		*philo;
 	int			i;
-	//int			idx = 0;
 
 	i = 0;
 	if (setup_data(data) == false)
@@ -60,11 +57,7 @@ int	run_simulation(t_data *data)
 		return (EXIT_BAD);
 	if (join_threads(data) == true)
 		return (printf("ahhhhhhhhhhhhhh\n"), EXIT_BAD);
-	// while (idx < philo->data->input->nbr)
-	// {
-	// 	printf("times philo %i has eaten: %i\n", philo[idx].id, philo[idx].times_eaten);
-	// 	idx++;
-	// }
+	print_times_eaten(philo, philo->data->input->nbr);
 	free(philo);
 	return (EXIT_GOOD);
 }

@@ -1,6 +1,6 @@
 NAME		:=	philo
 CC			:=	cc
-FLAGS		:=	-Wall -Werror -Wextra -g -fsanitize=address
+FLAGS		:=	-Wall -Werror -Wextra -g -fsanitize=thread
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	cleanup.c\
@@ -13,6 +13,7 @@ SOURCES		:=	cleanup.c\
 				setup_data.c\
 				setup_input.c\
 				setup_philo.c\
+				threads.c\
 				time.c\
 				utils.c\
 				wip_todo_functions.c\

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   errors.c                                           :+:    :+:            */
+/*   threads.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: owen <owen@student.codam.nl>                 +#+                     */
+/*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/04/21 10:57:37 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/13 10:23:35 by owhearn       ########   odam.nl         */
+/*   Created: 2025/08/13 11:29:47 by owhearn       #+#    #+#                 */
+/*   Updated: 2025/08/13 11:30:24 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// int	error_cleanup(t_data *data)
-// {
-// 	(void)data;
-// 	return (1);
-// }
+bool	join_threads(t_data *data)
+{
+	int	idx;
 
-// int	error_fcleanup(t_philo *philo)
-// {
-// 	(void)philo;
-// 	return (1);
-// }
+	idx = 0;
+	while (idx <= data->input->nbr)
+	{
+		if (pthread_join(data->threads[idx], NULL) != 0)
+			return (true);
+		idx++;
+	}
+	return (false);
+}

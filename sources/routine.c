@@ -6,27 +6,15 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 15:01:05 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/22 17:46:44 by owen          ########   odam.nl         */
+/*   Updated: 2025/08/13 11:32:36 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_delay(t_data *data, size_t delay)
-{
-	time_t	target;
-
-	target = get_current_time() + delay;
-	while (get_current_time() < target)
-	{
-		if (check_status(data) == true)
-			break ;
-		usleep(500);
-	}
-}
-
 void	ft_think(t_philo *philo)
 {
+	ft_delay(philo->data, (philo->data->input->time_eat / 2));
 	print_status(philo, THINK);
 }
 

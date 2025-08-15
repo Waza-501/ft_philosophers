@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/22 16:56:17 by owen          ########   odam.nl         */
+/*   Updated: 2025/08/13 11:33:28 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef enum e_print_type
 void			clean_philos(t_philo *philo, int target);
 void			clean_multimutex(pthread_mutex_t *target, int nbr);
 void			clean_data(t_data *data);
-void			clean_mutex(pthread_mutex_t	*target);
 
 /*errors.c*/
 
@@ -122,7 +121,10 @@ t_philo			*init_philos(t_data *data);
 void			*prepare_data(void);
 
 /*threads*/
+bool			join_threads(t_data *data);
+
 /*time*/
+void			ft_delay(t_data *data, size_t delay);
 time_t			get_current_time(void);
 time_t			get_start_time(t_data *data);
 void			delay_start(t_data *data);
