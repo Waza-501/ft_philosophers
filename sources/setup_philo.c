@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/08 14:44:25 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/30 16:55:30 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 12:31:00 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 bool	fill_philosophers(t_data *data, t_philo *philo)
 {
 	int			i;
+	int			j;
 
 	i = 0;
+	j = 0;
 	while (i < data->input->nbr)
 	{
 		philo[i].data = data;
@@ -24,7 +26,10 @@ bool	fill_philosophers(t_data *data, t_philo *philo)
 		philo[i].times_eaten = 0;
 		philo[i].last_meal = data->start;
 		if (pthread_mutex_init(&(philo[i].meal_lock), NULL) != 0)
+		{
+			clean_philos(philo, i);
 			return (false);
+		}
 		philo[i].fork1 = &data->forks[i];
 		philo[i].fork2 = &data->forks[(i + 1) % data->input->nbr];
 		i++;

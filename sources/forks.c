@@ -6,15 +6,14 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/16 13:15:19 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/13 11:45:59 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 16:32:23 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	drop_forks(t_philo *philo, t_data *data)
+bool	drop_forks(t_philo *philo)
 {
-	(void)data;
 	if (pthread_mutex_unlock(philo->fork1) != 0)
 		return (false);
 	if (pthread_mutex_unlock(philo->fork2) != 0)
@@ -22,9 +21,8 @@ bool	drop_forks(t_philo *philo, t_data *data)
 	return (true);
 }
 
-bool	grab_forks(t_philo *philo, t_data *data)
+bool	grab_forks(t_philo *philo)
 {
-	(void)data;
 	if (philo->id + 1 == philo->data->input->nbr)
 	{
 		if (pthread_mutex_lock(philo->fork2) != 0)
@@ -58,7 +56,7 @@ pthread_mutex_t	*create_forks(int nbr)
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != 0)
 		{
-			clean_multimutex(forks, i);
+			clean_mutex_arr(forks, i);
 			return (NULL);
 		}
 		i++;

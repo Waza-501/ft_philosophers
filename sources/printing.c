@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 17:13:22 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/30 17:09:30 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 14:25:32 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_msg_fd(char *msg, int code)
 {
-	int temp;
+	int	temp;
 
 	temp = 0;
 	if (code == 1)
@@ -42,7 +42,7 @@ void	do_the_printing(char *str, t_philo *philo)
 void	*print_status(t_philo *philo, t_print_type type)
 {
 	pthread_mutex_lock(&philo->data->print);
-	if (check_status(philo->data) == true)
+	if (check_status(philo->data) == true && type != DEATH)
 		return (pthread_mutex_unlock(&philo->data->print), NULL);
 	if (type == DEATH)
 		do_the_printing("died", philo);

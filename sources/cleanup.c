@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 14:49:27 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/13 11:33:41 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 12:51:18 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	clean_philos(t_philo *philo, int target)
 	free(philo);
 }
 
-void	clean_multimutex(pthread_mutex_t *target, int nbr)
+void	clean_mutex_arr(pthread_mutex_t *target, int nbr)
 {
 	int	i;
 
@@ -36,15 +36,19 @@ void	clean_multimutex(pthread_mutex_t *target, int nbr)
 		pthread_mutex_destroy(&target[i]);
 		i++;
 	}
-	free (target);
+	if (target)
+		free (target);
 }
 
-void	clean_data(t_data *data)
+void	clean_data(t_data *data, bool mutex_init)
 {
-	if (&data->print)
-		clean_mutex(&data->print);
-	if (data->forks)
-		clean_multimutex(data->forks, data->input->nbr);
+	if (mutex_init == true)
+	{
+		pthread_mutex_destroy(&data->print);
+		pthread_mutex_destroy(&data->status);
+		if (data->forks)
+			clean_mutex_arr(data->forks, data->input->nbr);
+	}
 	if (data->threads)
 		free(data->threads);
 	free(data->input);

@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 14:20:48 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/30 17:45:39 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 12:51:02 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@ bool	input_over_limit(t_input *input)
 
 bool	warn_input(t_input *input)
 {
+	bool	warn;
+
+	warn = false;
 	if (input->nbr > 200)
-		return (true);
-	return (false);
+		warn = true;
+	else if (input->time_die < input->time_eat || input->time_die
+		< input->time_sleep || input->time_die
+		< (input->time_eat + input->time_sleep + 5))
+		warn = true;
+	return (warn);
 }
 
 int	verify_input(int argc, t_input *input)
@@ -42,12 +49,6 @@ int	verify_input(int argc, t_input *input)
 	if (warn_input(input) == true)
 		if (input_over_limit(input) == true)
 			ret_status = print_msg_fd(OVER_LIMIT, 1);
-	/*if (input->nbr > 250 || input->time_die > 250 || input->time_eat > 250
-		|| input->time_sleep > 250)
-		ret_status = print_msg_fd(WARN_LIMIT, 0);
-	if (input->nbr > 350 || input->time_die > 350 || input->time_eat > 350
-		|| input->time_sleep > 350)
-		ret_status = print_msg_fd(WARN_LIMIT, 0);*/
 	printf("status is %i\n", ret_status);
 	return (ret_status);
 }

@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/13 11:33:28 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 16:43:50 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
  this can lead to performance issues and/or failure."
 # define OVER_LIMIT	"One of the given values far exceeds the recommended\
  tests. To avoid crashes/ other undefined behaviour, the program ends here."
+# define FORK_LOCK_FAIL	"There was an issue (un)locking forks."
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -78,15 +79,14 @@ typedef enum e_print_type
 
 /*cleanup*/
 void			clean_philos(t_philo *philo, int target);
-void			clean_multimutex(pthread_mutex_t *target, int nbr);
-void			clean_data(t_data *data);
+void			clean_mutex_arr(pthread_mutex_t *target, int nbr);
+void			clean_data(t_data *data, bool mutex_init);
 
 /*errors.c*/
 
-
 /*forks.c*/
-bool			drop_forks(t_philo *philo, t_data *data);
-bool			grab_forks(t_philo *philo, t_data *data);
+bool			drop_forks(t_philo *philo);
+bool			grab_forks(t_philo *philo);
 pthread_mutex_t	*create_forks(int nbr);
 
 /*main.c*/
@@ -130,12 +130,12 @@ time_t			get_start_time(t_data *data);
 void			delay_start(t_data *data);
 
 /*utils.c*/
+void			ft_putstr_fd(int fd, char *s);
 int				ft_strlen(char *str);
 int				convert_string(char *str, int *status);
-bool			init_mutex(pthread_mutex_t	*mutex);
 
 /*wip_todo_functions.c*/
-bool			set_mutex(pthread_mutex_t *src);
+bool			init_mutex(pthread_mutex_t	*mutex);
 void			set_finish(t_data *data);
 bool			check_status(t_data *data);
 

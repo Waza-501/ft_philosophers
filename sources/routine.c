@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 15:01:05 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/13 11:32:36 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 16:43:40 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_think(t_philo *philo)
 {
-	ft_delay(philo->data, (philo->data->input->time_eat / 2));
+	if (philo->data->input->nbr % 2)
+		ft_delay(philo->data, (philo->data->input->time_eat / 2));
 	print_status(philo, THINK);
 }
 
@@ -24,11 +25,10 @@ void	ft_sleep(t_philo *philo, t_data *data)
 	ft_delay(data, data->input->time_sleep);
 }
 
+/*replace exits with actual end conditions*/
 void	ft_eat(t_philo *philo, t_data *data)
 {
-	/*replace exits with actual end conditions*/
-	if (grab_forks(philo, data) == false)
-		exit(1);
+	grab_forks(philo);
 	print_status(philo, EAT);
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->last_meal = get_current_time();
@@ -37,8 +37,7 @@ void	ft_eat(t_philo *philo, t_data *data)
 	pthread_mutex_lock(&philo->meal_lock);
 	philo->times_eaten++;
 	pthread_mutex_unlock(&philo->meal_lock);
-	if (drop_forks(philo, data) == false)
-		exit(1);
+	drop_forks(philo);
 }
 
 void	*philo_routine(void *input)

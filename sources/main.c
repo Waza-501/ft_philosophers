@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/13 11:30:27 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 13:57:32 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 /*temporary testing function*/
 void	print_times_eaten(t_philo *philo, int target)
 {
-	int	idx = 0;
+	int	idx;
 
+	idx = 0;
 	while (idx < target)
 	{
-		printf("times philo %i has eaten: %i\n", philo[idx].id, philo[idx].times_eaten);
+		printf("times philo %i has eaten: %i\n", philo[idx].id,
+			philo[idx].times_eaten);
 		idx++;
 	}
 }
@@ -70,8 +72,8 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (print_msg_fd(MEM_ERR, 1));
 	if (parse_input(argc, argv, data) != 0)
-		return (clean_data(data), EXIT_BAD);
+		return (clean_data(data, false), EXIT_BAD);
 	run_simulation(data);
-	clean_data(data);
+	clean_data(data, true);
 	return (0);
 }

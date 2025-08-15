@@ -6,11 +6,17 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:58:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/22 16:34:30 by owen          ########   odam.nl         */
+/*   Updated: 2025/08/15 12:41:11 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	ft_putstr_fd(int fd, char *s)
+{
+	if (s)
+		write(fd, s, ft_strlen(s));
+}
 
 int	ft_strlen(char *str)
 {
@@ -77,11 +83,4 @@ int	convert_string(char *str, int *status)
 	if (value > INT_MAX && *status == 0)
 		*status = print_msg_fd(IN_OVER_MAX, 1);
 	return (value);
-}
-
-bool	init_mutex(pthread_mutex_t	*mutex)
-{
-	if (pthread_mutex_init(mutex, NULL))
-		return (false);
-	return (true);
 }

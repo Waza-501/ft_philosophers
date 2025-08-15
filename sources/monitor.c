@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/19 16:45:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/07/30 17:52:42 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 14:37:07 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,24 @@ bool	cycle_array(t_philo *philo, t_data *data)
 	bool	target;
 
 	idx = 0;
-	target = false;
-	(void)data;
+	target = true;
 	while (idx < philo->data->input->nbr)
 	{
 		pthread_mutex_lock(&philo[idx].meal_lock);
 		if (starve_check(&philo[idx], philo->data->input) == true)
 		{
+			set_finish(data);
 			print_status(&philo[idx], DEATH);
-			set_finish(philo->data);
 			pthread_mutex_unlock(&philo[idx].meal_lock);
 			return (true);
 		}
-		target = meal_target(&philo[idx], philo->data->input);
+		if (meal_target(&philo[idx], philo->data->input) == false)
+			target = false;
 		pthread_mutex_unlock(&philo[idx].meal_lock);
 		idx++;
 	}
-	if (target == true)
-	{
-		print_status(philo, FINISH);
-		set_finish(philo->data);
-	}
+	if (target == true && data->infinite == false)
+		set_finish(data);
 	return (false);
 }
 
@@ -64,10 +61,10 @@ void	*monitor(void *input)
 
 	philo = (t_philo *)input;
 	delay_start(philo->data);
-	while (true)
+	while (true && check_status(philo->data) == false)
 	{
 		if (cycle_array(philo, philo->data) == true)
 			return (NULL);
-		usleep(1000);
 	}
+	return (NULL);
 }

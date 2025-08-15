@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 16:06:21 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/07/19 18:27:10 by owen          ########   odam.nl         */
+/*   Updated: 2025/08/15 12:25:24 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ bool	setup_data(t_data *data)
 	if (!data->forks)
 		return (false);
 	data->start = get_start_time(data);
-	data->threads = (pthread_t *)malloc(sizeof(pthread_t) * (data->input->nbr + 1));
+	data->threads = (pthread_t *)malloc(sizeof(pthread_t)
+			* (data->input->nbr + 1));
 	if (!data->threads)
-		return (clean_multimutex(data->forks, data->input->nbr), false);
+		return (clean_data(data, true), false);
 	return (true);
 }
 
