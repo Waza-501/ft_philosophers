@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/15 13:57:32 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 17:40:28 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,17 @@ int	run_simulation(t_data *data)
 	if (setup_data(data) == false)
 		return (EXIT_BAD);
 	philo = init_philos(data);
+	if (!philo)
+		return (EXIT_BAD);
 	if (data->input->nbr == 1)
 		return (lone_philosopher(philo), EXIT_GOOD);
-	while (i < data->input->nbr)
-	{
-		if (pthread_create(&data->threads[i], NULL, &philo_routine, \
-(void *)&philo[i]) != 0)
-			return (i);
-		i++;
-	}
-	if (pthread_create(&data->threads[i], NULL, &monitor, (void *)philo) != 0)
-		return (EXIT_BAD);
-	if (join_threads(data) == true)
-		return (printf("ahhhhhhhhhhhhhh\n"), EXIT_BAD);
+	i = create_philo_threads(philo, data);
+	if (i != (data->input->nbr - 1))
+		return (join_threads(data, (i - 1)), free(philo), EXIT_BAD);
+	else if (pthread_create(&data->threads[i], NULL, &monitor, (void *)philo) != 0)
+		return (join_threads(data, data->input->nbr - 1), free(philo), EXIT_BAD);
+	if (join_threads(data, data->input->nbr) == true)
+		return (printf("ahhhhhhhhhhhhhh\n"), free(philo), EXIT_BAD);
 	print_times_eaten(philo, philo->data->input->nbr);
 	free(philo);
 	return (EXIT_GOOD);

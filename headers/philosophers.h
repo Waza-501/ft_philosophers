@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/15 16:43:50 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 17:36:18 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ t_philo			*init_philos(t_data *data);
 void			*prepare_data(void);
 
 /*threads*/
-bool			join_threads(t_data *data);
+bool			join_threads(t_data *data, int target);
+int				create_philo_threads(t_philo *philo, t_data *data);
 
 /*time*/
 void			ft_delay(t_data *data, size_t delay);

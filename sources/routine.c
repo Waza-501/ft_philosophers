@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 15:01:05 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/15 16:43:40 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/15 17:37:02 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	*philo_routine(void *input)
 	if (philo->data->infinite == false && philo->data->input->meal_target == 0)
 		return (NULL);
 	delay_start(philo->data);
+	if (check_status(philo->data) == true)
+		return (NULL);
 	if (philo->id % 2)
 		ft_delay(philo->data, (philo->data->input->time_eat / 2));
 	while (true)
