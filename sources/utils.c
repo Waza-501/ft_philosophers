@@ -6,17 +6,11 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:58:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/15 12:41:11 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/16 01:46:07 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	ft_putstr_fd(int fd, char *s)
-{
-	if (s)
-		write(fd, s, ft_strlen(s));
-}
 
 int	ft_strlen(char *str)
 {

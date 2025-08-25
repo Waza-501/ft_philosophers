@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/04 12:07:03 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/15 12:36:49 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/16 01:50:00 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ bool	init_mutex(pthread_mutex_t	*mutex)
 }
 
 void	set_finish(t_data *data)
-{
+{ 
 	pthread_mutex_lock(&data->status);
+	printf("set finish\n");
 	data->finish = true;
 	pthread_mutex_unlock(&data->status);
 }

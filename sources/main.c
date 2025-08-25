@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/15 17:40:28 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/16 01:57:16 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ int	run_simulation(t_data *data)
 	if (data->input->nbr == 1)
 		return (lone_philosopher(philo), EXIT_GOOD);
 	i = create_philo_threads(philo, data);
-	if (i != (data->input->nbr - 1))
-		return (join_threads(data, (i - 1)), free(philo), EXIT_BAD);
+	printf("i is %i input is %i\n", i, data->input->nbr);
+	if (i != (data->input->nbr))
+		return (join_threads(data, (i - 1), true), free(philo), EXIT_BAD);
 	else if (pthread_create(&data->threads[i], NULL, &monitor, (void *)philo) != 0)
-		return (join_threads(data, data->input->nbr - 1), free(philo), EXIT_BAD);
-	if (join_threads(data, data->input->nbr) == true)
+		return (join_threads(data, (data->input->nbr - 1), true),
+			free(philo), EXIT_BAD);
+	if (join_threads(data, data->input->nbr, false) == true)
 		return (printf("ahhhhhhhhhhhhhh\n"), free(philo), EXIT_BAD);
 	print_times_eaten(philo, philo->data->input->nbr);
 	free(philo);

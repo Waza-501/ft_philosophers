@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/08 14:44:25 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/15 12:31:00 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/16 01:45:47 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 bool	fill_philosophers(t_data *data, t_philo *philo)
 {
 	int			i;
-	int			j;
 
 	i = 0;
-	j = 0;
 	while (i < data->input->nbr)
 	{
 		philo[i].data = data;

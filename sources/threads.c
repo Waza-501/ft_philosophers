@@ -6,18 +6,19 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/13 11:29:47 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/15 17:40:59 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/08/16 01:57:47 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	join_threads(t_data *data, int target)
+bool	join_threads(t_data *data, int target, bool error)
 {
 	int	idx;
 
 	idx = 0;
-	set_finish(data);
+	if (error == true)
+		set_finish(data);
 	while (idx <= target)
 	{
 		if (pthread_join(data->threads[idx], NULL) != 0)
