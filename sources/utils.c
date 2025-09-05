@@ -6,11 +6,19 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:58:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/16 01:46:07 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/05 15:56:49 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	set_finish(t_data *data)
+{
+	pthread_mutex_lock(&data->status);
+	printf("set finish\n");
+	data->finish = true;
+	pthread_mutex_unlock(&data->status);
+}
 
 int	ft_strlen(char *str)
 {

@@ -6,11 +6,21 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/19 16:45:51 by owen          #+#    #+#                 */
-/*   Updated: 2025/08/15 14:37:07 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/05 15:55:42 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+bool	check_status(t_data *data)
+{
+	bool	status;
+
+	pthread_mutex_lock(&data->status);
+	status = data->finish;
+	pthread_mutex_unlock(&data->status);
+	return (status);
+}
 
 bool	starve_check(t_philo *philo, t_input *input)
 {
