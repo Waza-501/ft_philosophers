@@ -16,7 +16,6 @@ SOURCES		:=	cleanup.c\
 				threads.c\
 				time.c\
 				utils.c\
-				wip_todo_functions.c\
 
 OBJECTS_DIR	:=	objects/
 OBJECTS		:=	$(addprefix $(OBJECTS_DIR), $(SOURCES:.c=.o))

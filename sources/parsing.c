@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/12 14:20:48 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/15 12:51:02 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 13:38:38 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	verify_input(int argc, t_input *input)
 	if (warn_input(input) == true)
 		if (input_over_limit(input) == true)
 			ret_status = print_msg_fd(OVER_LIMIT, 1);
-	printf("status is %i\n", ret_status);
 	return (ret_status);
 }
 

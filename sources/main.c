@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/09/05 15:54:38 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 13:41:45 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	run_simulation(t_data *data)
 	if (data->input->nbr == 1)
 		return (lone_philosopher(philo), EXIT_GOOD);
 	i = create_philo_threads(philo, data);
-	printf("i is %i input is %i\n", i, data->input->nbr);
 	if (i != (data->input->nbr))
 		return (join_threads(data, (i - 1), true), free(philo), EXIT_BAD);
 	else if (pthread_create(&data->threads[i], NULL,
@@ -59,8 +58,8 @@ int	run_simulation(t_data *data)
 		return (join_threads(data, (data->input->nbr - 1), true),
 			free(philo), EXIT_BAD);
 	if (join_threads(data, data->input->nbr, false) == true)
-		return (printf("ahhhhhhhhhhhhhh\n"), free(philo), EXIT_BAD);
-	print_times_eaten(philo, philo->data->input->nbr);
+		return (free(philo), EXIT_BAD);
+	//print_times_eaten(philo, philo->data->input->nbr);
 	free(philo);
 	return (EXIT_GOOD);
 }
@@ -74,7 +73,8 @@ int	main(int argc, char **argv)
 		return (print_msg_fd(MEM_ERR, 1));
 	if (parse_input(argc, argv, data) != 0)
 		return (clean_data(data, false), EXIT_BAD);
-	run_simulation(data);
+	if (run_simulation(data) != 0)
+		return (clean_data(data, true), EXIT_BAD);
 	clean_data(data, true);
 	return (0);
 }

@@ -6,13 +6,12 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 14:49:27 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/15 12:51:18 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 13:38:22 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/*all of this needs to be redone*/
 void	clean_philos(t_philo *philo, int target)
 {
 	int	i;
