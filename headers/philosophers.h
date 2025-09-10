@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:59 by owen          #+#    #+#                 */
-/*   Updated: 2025/09/05 15:57:52 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 19:02:00 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,10 @@ typedef enum e_print_type
 }			t_print_type;
 
 /*cleanup*/
+int				err_exit(t_data *data, int num, t_philo *philo);
 void			clean_philos(t_philo *philo, int target);
 void			clean_mutex_arr(pthread_mutex_t *target, int nbr);
 void			clean_data(t_data *data, bool mutex_init);
-
-/*errors.c*/
 
 /*forks.c*/
 bool			drop_forks(t_philo *philo);

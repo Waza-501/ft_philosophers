@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/07/08 14:44:25 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/16 01:45:47 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 19:08:56 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ t_philo	*init_philos(t_data *data)
 	if (!new)
 		return (NULL);
 	if (fill_philosophers(data, new) == false)
-		return (clean_philos(new, data->input->nbr), NULL);
+	{
+		clean_philos(new, data->input->nbr);
+		return (NULL);
+	}
 	return (new);
 }

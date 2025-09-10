@@ -6,11 +6,20 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 14:49:27 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/09/10 13:38:22 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 18:59:05 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	err_exit(t_data *data, int num, t_philo *philo)
+{
+	if (join_threads(data, num, true) == false)
+		exit (1);
+	clean_philos(philo, data->input->nbr);
+	free(philo);
+	return (EXIT_BAD);
+}
 
 void	clean_philos(t_philo *philo, int target)
 {

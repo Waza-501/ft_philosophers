@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/13 11:29:47 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/09/05 15:56:56 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 18:55:01 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ bool	join_threads(t_data *data, int target, bool error)
 	while (idx <= target)
 	{
 		if (pthread_join(data->threads[idx], NULL) != 0)
-			return (true);
+			return (false);
 		idx++;
 	}
-	return (false);
+	return (true);
 }
 
 int	create_philo_threads(t_philo *philo, t_data *data)

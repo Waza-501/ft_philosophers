@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 16:06:21 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/15 12:25:24 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 19:08:08 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ bool	setup_data(t_data *data)
 	data->threads = (pthread_t *)malloc(sizeof(pthread_t)
 			* (data->input->nbr + 1));
 	if (!data->threads)
-		return (clean_data(data, true), false);
+	{
+		clean_data(data, true);
+		return (false);
+	}
 	return (true);
 }
 

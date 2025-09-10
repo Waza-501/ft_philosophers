@@ -1,6 +1,6 @@
 NAME		:=	philo
 CC			:=	cc
-FLAGS		:=	-Wall -Werror -Wextra
+FLAGS		:=	-Wall -Werror -Wextra -g -fsanitize=address
 
 SOURCES_DIR	:=	sources/
 SOURCES		:=	cleanup.c\

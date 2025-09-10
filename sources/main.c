@@ -6,7 +6,7 @@
 /*   By: owen <owen@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/04/21 10:27:34 by owen          #+#    #+#                 */
-/*   Updated: 2025/09/10 13:41:45 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 19:06:22 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_times_eaten(t_philo *philo, int target)
 	}
 }
 
-void	lone_philosopher(t_philo *philo)
+int	lone_philosopher(t_philo *philo, t_data *data)
 {
 	delay_start(philo->data);
 	pthread_mutex_lock(philo->fork1);
@@ -35,6 +35,8 @@ void	lone_philosopher(t_philo *philo)
 	ft_delay(philo->data, philo->data->input->time_die);
 	print_status(philo, DEATH);
 	pthread_mutex_unlock(philo->fork1);
+	clean_philos(philo, data->input->nbr);
+	return (EXIT_GOOD);
 }
 
 int	run_simulation(t_data *data)
@@ -49,18 +51,20 @@ int	run_simulation(t_data *data)
 	if (!philo)
 		return (EXIT_BAD);
 	if (data->input->nbr == 1)
-		return (lone_philosopher(philo), EXIT_GOOD);
+		return (lone_philosopher(philo, data));
 	i = create_philo_threads(philo, data);
 	if (i != (data->input->nbr))
-		return (join_threads(data, (i - 1), true), free(philo), EXIT_BAD);
+		return (err_exit(data, i - 1, philo));
 	else if (pthread_create(&data->threads[i], NULL,
 			&monitor, (void *)philo) != 0)
-		return (join_threads(data, (data->input->nbr - 1), true),
-			free(philo), EXIT_BAD);
-	if (join_threads(data, data->input->nbr, false) == true)
-		return (free(philo), EXIT_BAD);
+		return (err_exit(data, data->input->nbr - 1, philo));
+	if (join_threads(data, data->input->nbr, false) == false)
+	{
+		clean_philos(philo, data->input->nbr);
+		return (EXIT_BAD);
+	}
 	//print_times_eaten(philo, philo->data->input->nbr);
-	free(philo);
+	clean_philos(philo, data->input->nbr);
 	return (EXIT_GOOD);
 }
 

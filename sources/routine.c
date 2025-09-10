@@ -6,7 +6,7 @@
 /*   By: owhearn <owhearn@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/27 15:01:05 by owhearn       #+#    #+#                 */
-/*   Updated: 2025/08/15 17:37:02 by owhearn       ########   odam.nl         */
+/*   Updated: 2025/09/10 18:43:37 by owhearn       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_sleep(t_philo *philo, t_data *data)
 	ft_delay(data, data->input->time_sleep);
 }
 
-/*replace exits with actual end conditions*/
 void	ft_eat(t_philo *philo, t_data *data)
 {
 	grab_forks(philo);
